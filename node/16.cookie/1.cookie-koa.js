@@ -17,10 +17,20 @@ router.get("/read", async (ctx, next) => {
 
 router.get("/write", async (ctx, next) => {
   // koa用法
-  ctx.cookies.set("name", "zf", { domain: ".zf.cn" })
-  ctx.cookies.set("age", "11", { httpOnly: true })
+  ctx.cookies.set("name", "zf")
+  ctx.cookies.set("age", "11", { httpOnly: true, domain: ".zf.cn" })
   ctx.body = "write ok"
 })
+
+/**
+ * 使用nodemon 启动之后，首先访问 localhost:3000/write  age=11 这个cookie 是写不进去的，因为有domain的限制
+ * name=zf 是可以写进去的，因为没有domain的限制。
+ * 
+ * 访问 localhost:3000/read 能够访问到的是 name=z 这个cookie 
+ * 
+ * domain 虽然在本地并不是很好测试，但是对于cookie的影响显而易见，我们可以看到，京东上有些cookie是 .jd.com 这种形式，那么
+ * pc.jd.com  mobile.jd.com 都是能够访问的。
+ */
 
 app.use(router.routes())
 app.listen(3000)
