@@ -27,3 +27,8 @@ const obj = { foo: 'bar', baz: 42 };
 console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
 ```
 
+## command的这个包的使用方法：
+[参考资料](https://juejin.cn/post/6844903797907521544)
+
+
+
