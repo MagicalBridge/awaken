@@ -15,3 +15,15 @@
 ## 关于这个包入口文件的开头声明
 
 如何快速记忆呢？ #! /usr/bin/env node **有病的环境 node**
+
+
+## 代码中使用的Object.entries(obj) 这个方法：
+[参考链接](https://segmentfault.com/a/1190000011616239)
+
+返回的是对象中自身可枚举属性的键值对数组, 其排列与使用 for...in 循环遍历该对象时返回的顺序一致（区别在于 for-in 循环也枚举原型链中的属性）。
+
+```js
+const obj = { foo: 'bar', baz: 42 };
+console.log(Object.entries(obj)); // [ ['foo', 'bar'], ['baz', 42] ]
+```
+
