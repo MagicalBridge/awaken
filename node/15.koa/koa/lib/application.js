@@ -22,6 +22,10 @@ class Application {
     ctx.request = request
     // 同时原生的req属性也会挂载到 request 上
     ctx.request.req = ctx.req = req
+
+    // ctx代理response 套路和 request 是一样的
+    ctx.response = response
+    ctx.response.res = ctx.res = res
     return ctx
   }
 
@@ -32,6 +36,15 @@ class Application {
   handleRequest = (req, res) => {
     const ctx = this.createContext(req, res)
     this.fn(ctx)
+
+    let _body = ctx.body
+    if (_body) {
+      if (typeof _body === "string" || Buffer.isBuffer(_body)) {
+        return res.end(_body)
+      } else if (typeof _body == "object") {
+        return res.end(JSON.stringify(_body))
+      }
+    }
   }
 
   listen(...args) {

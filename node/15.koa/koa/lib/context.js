@@ -6,8 +6,16 @@ function defineGetter(proto, target, key) {
   })
 }
 
+function defineSetter(target, key) {
+  context.__defineSetter__(key, function (value) {
+    this[target][key] = value
+  })
+}
+
 defineGetter(context, "request", "url")
 defineGetter(context, "request", "path")
 defineGetter(context, "request", "method")
+defineGetter(context, "response", "body")
+defineSetter(context, "response", "body")
 
 module.exports = context
