@@ -1,0 +1,13 @@
+build
+node_modules/
+.tmp/
+/dist
+*bundle.js
+./idea
+.vscode/
+npm-debug.log
+kraken.menu.js
+package-lock.json
+.DS_Store
+.history
+.idea
