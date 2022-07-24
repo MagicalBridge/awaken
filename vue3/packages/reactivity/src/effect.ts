@@ -1,6 +1,5 @@
 // import { ReactiveEffect } from "vue";
 
-// 我们不使用vue原生提供的，自己实现一个
 class ReactiveEffect {
   public active: boolean = true
   public fn
@@ -9,6 +8,7 @@ class ReactiveEffect {
   }
   run() {
     // 执行这个函数的时候，就会到proxy上去取值，就会触发get方法。
+    // 取值的时候，要让当前的属性和对应的effect关联起来 这就是依赖收集
     this.fn()
   }
 }
