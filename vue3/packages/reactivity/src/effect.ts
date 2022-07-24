@@ -24,6 +24,11 @@ class ReactiveEffect {
   }
 }
 
+// 收集函数
+export function track(target, propKey) {
+  console.log(target, propKey, avtiveEffect)
+}
+
 export function effect(fn) {
   // 这个方法的作用是将用户传递进来的函数，变成一个响应式的effect
   // 这个属性就会记住effect 当属性发生变化的时候，重新执行函数。

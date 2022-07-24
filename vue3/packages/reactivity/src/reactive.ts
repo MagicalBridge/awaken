@@ -1,4 +1,5 @@
 import { isObject } from "@vue/shared"
+import { track } from "./effect"
 
 // WeakMap的key只能是对象
 const reactiveMap = new WeakMap()
@@ -30,12 +31,13 @@ export function reactive(target) {
   const proxy = new Proxy(target, {
     // 拦截对象属性的读取，比如 proxy.foo和proxy['foo']
     get(target, propKey, reactive) {
-      // proxy 在取属性的走在这里  target[ReactiveFlags.IS_REACTIVE] 为true 
+      // proxy 在取属性的走在这里  target[ReactiveFlags.IS_REACTIVE] 为true
       // 会直接返回proxy对象，不会再代理一遍。
       if (propKey === ReactiveFlags.IS_REACTIVE) {
         return true
       }
       console.log("这里可以记录这个属性使用了哪个effect")
+      track(target, propKey)
       return Reflect.get(target, propKey, reactive)
     },
     // 拦截对象属性的设置 proxy.foo = v或proxy['foo'] = v，返回一个布尔值。
