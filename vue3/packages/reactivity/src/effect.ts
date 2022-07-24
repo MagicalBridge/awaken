@@ -4,19 +4,22 @@ export let avtiveEffect = undefined
 class ReactiveEffect {
   public active: boolean = true
   public fn
+  public parent = null
   constructor(fn) {
     this.fn = fn
   }
   run() {
     // 执行这个函数的时候，就会到proxy上去取值，就会触发get方法。
     // 取值的时候，要让当前的属性和对应的effect关联起来 这就是依赖收集
-    // 当我执行run函数的时候，将当前的这个实例赋值给这个变量, 也就放在了全局上
-    // 因为我们的变量是放在全局上的，当我们函数执行完毕之后，还应该把这个值清空
+    // 执行run函数的时候，将当前的这个实例赋值给这个变量, 也就放在了全局上
     try {
+      this.parent = avtiveEffect
       avtiveEffect = this
       this.fn()
     } finally {
-      avtiveEffect = undefined
+      // 因为我们的变量是放在全局上的，当我们函数执行完毕之后，还应该把这个值清空
+      avtiveEffect = this.parent
+      this.parent = null
     }
   }
 }
