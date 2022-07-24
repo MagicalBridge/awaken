@@ -36,7 +36,8 @@ export function reactive(target) {
       if (propKey === ReactiveFlags.IS_REACTIVE) {
         return true
       }
-      console.log("这里可以记录这个属性使用了哪个effect")
+      // console.log("这里可以记录这个属性使用了哪个effect")
+      // 这里做依赖收集函数的调用
       track(target, propKey)
       return Reflect.get(target, propKey, reactive)
     },
