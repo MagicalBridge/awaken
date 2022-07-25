@@ -62,6 +62,24 @@ export function track(target, propKey) {
   }
 }
 
+export function trigger(target, propKey, value) {
+  // 一层一层的查找
+  let depsMap = targetMap.get(target)
+  if (!depsMap) {
+    // 如果没有找到，说明没有依赖任何effect
+    return
+  }
+  const effects = depsMap.get(propKey)
+  // 获取到对应的 set 之后，遍历执行里面的run方法
+  effects &&
+    effects.forEach((effect) => {
+      // 这个代码防止的操作的是死循环的调用自己
+      if (effect !== activeEffect) {
+        effect.run()
+      }
+    })
+}
+
 export function effect(fn) {
   // 这个方法的作用是将用户传递进来的函数，变成一个响应式的effect
   // 这个属性就会记住effect 当属性发生变化的时候，重新执行函数。

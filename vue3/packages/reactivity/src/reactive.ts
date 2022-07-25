@@ -1,5 +1,5 @@
 import { isObject } from "@vue/shared"
-import { track } from "./effect"
+import { track, trigger } from "./effect"
 
 // WeakMap的key只能是对象
 const reactiveMap = new WeakMap()
@@ -43,8 +43,14 @@ export function reactive(target) {
     },
     // 拦截对象属性的设置 proxy.foo = v或proxy['foo'] = v，返回一个布尔值。
     set(target, propKey, value, reactive) {
-      console.log("这里可以通知effect重新执行")
-      return Reflect.set(target, propKey, value, reactive)
+      // 将老的值拿出来和设置的新的值比较，不一致才触发更新
+      let oldValue = target[propKey]
+      if (oldValue !== value) {
+        let result = Reflect.set(target, propKey, value, reactive)
+        // 这个方法在effect 中定义
+        trigger(target, propKey, value)
+        return result
+      }
     },
   })
 
