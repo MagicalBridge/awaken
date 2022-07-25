@@ -5,6 +5,7 @@ class ReactiveEffect {
   public active: boolean = true
   public fn
   public parent = null
+  public deps = [] // effect中用了哪些属性 后续清理的时候需要使用
   constructor(fn) {
     this.fn = fn
   }
@@ -55,6 +56,8 @@ export function track(target, propKey) {
     if (shouldTrack) {
       // 就把 activeEffect 放进去
       deps.add(activeEffect)
+      // 双向记忆
+      activeEffect.deps.push(deps)
     }
   }
 }
