@@ -40,7 +40,7 @@ export function track(target, propKey) {
     let depsMap = targetMap.get(target)
     if (!depsMap) {
       // 如果不存在，就创建这样一个数据结构
-      // target 本身就是一个对象
+      // target 本身就是一个对象  {Object => Map(0)}
       targetMap.set(target, (depsMap = new Map()))
     }
 
@@ -56,7 +56,7 @@ export function track(target, propKey) {
     if (shouldTrack) {
       // 就把 activeEffect 放进去
       deps.add(activeEffect)
-      // 双向记忆
+      // 双向记忆 这里记住的是每个属性的set。
       activeEffect.deps.push(deps)
     }
   }
