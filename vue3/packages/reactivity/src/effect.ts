@@ -33,7 +33,7 @@ const targetMap = new WeakMap()
 // 它的数据结构课程是这样的 { target: { name: [effect,effect], age: [effect,effect] } }
 export function track(target, propKey) {
   // console.log(target, propKey, activeEffect)
-  // 如果在 effect外部使用 某个属性，就不需要收集。
+  // 如果在 effect外部使用某个属性，不会走进run方法，activeEffect为undefined。就不走收集逻辑。
   if (activeEffect) {
     // 这里做依赖收集, 首先在map中查找搜索target是否存在
     let depsMap = targetMap.get(target)
