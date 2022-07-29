@@ -16,6 +16,7 @@ class ReactiveEffect {
     try {
       this.parent = activeEffect
       activeEffect = this
+      cleanEffect(this)
       this.fn()
     } finally {
       // 因为我们的变量是放在全局上的，当我们函数执行完毕之后，还应该把这个值清空
@@ -69,15 +70,27 @@ export function trigger(target, propKey, value) {
     // 如果没有找到，说明没有依赖任何effect
     return
   }
-  const effects = depsMap.get(propKey)
+  let effects = depsMap.get(propKey)
   // 获取到对应的 set 之后，遍历执行里面的run方法
-  effects &&
+  if (effects) {
+    // 存一个副本，避免死循环
+    effects = new Set(effects)
     effects.forEach((effect) => {
       // 这个代码防止的操作的是死循环的调用自己
       if (effect !== activeEffect) {
         effect.run()
       }
     })
+  } 
+}
+
+export function cleanEffect(effect) {
+  // 每次执行之前将之前存放的set清理掉
+  let deps = effect.deps // deps中存放的是所有属性的set
+  for (let i = 0; i < deps.length; i++) {
+    deps[i].delete(effect)
+  }
+  effect.deps.length = 0
 }
 
 export function effect(fn) {
