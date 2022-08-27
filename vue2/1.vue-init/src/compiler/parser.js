@@ -2,14 +2,12 @@ const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z]*` // 标签名
 const qnameCapture = `((?:${ncname}\\:)?${ncname})` //  用来获取的标签名的 match后的索引为1的
 const startTagOpen = new RegExp(`^<${qnameCapture}`) // 匹配开始标签的
 const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`) // 匹配闭合标签的
-//           aa  =   "  xxx "  | '  xxxx '  | xxx
 const attribute =
   /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/ // a=b  a="b"  a='b'
 const startTagClose = /^\s*(\/?)>/ //     />   <div/>
 const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g // {{aaaaa}}
 
 // ast (语法层面的描述 js css html) vdom （dom节点）
-
 // html字符串解析成 对应的脚本来触发 tokens  <div id="app"> {{name}}</div>
 // 将解析后的结果 组装成一个树结构  栈
 function createAstElement(tagName, attrs) {
@@ -118,11 +116,9 @@ export function parserHTML(html) {
   return root
 }
 
-// 看一下用户是否传入了 , 没传入可能传入的是 template, template如果也没有传递
-// 将我们的html =》 词法解析  （开始标签 ， 结束标签，属性，文本）
+// 将我们的html => 词法解析  （开始标签、结束标签、属性、文本）
 // => ast语法树 用来描述html语法的 stack=[]
 
-// codegen  <div>hello</div>  =>   _c('div',{},'hello')  => 让字符串执行
+// codegen  <div>hello</div> => _c('div',{},'hello')  => 让字符串执行
 // 字符串如果转成代码 eval 好性能 会有作用域问题
-
 // 模板引擎 new Function + with 来实现
