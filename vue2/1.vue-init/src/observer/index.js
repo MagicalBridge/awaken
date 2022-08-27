@@ -4,10 +4,10 @@ import { arrayMethods } from "./array"
 // 1.如果数据是对象 会将对象不停的递归 进行劫持
 // 2.如果是数组，会劫持数组的方法，并对数组中不是基本数据类型的进行检测
 
-// 检测数据变化 类有类型 ， 对象无类型
+// 检测数据变化 类有类型，对象无类型
 class Observer {
   constructor(data) {
-    // 对对象中的所有属性 进行劫持
+    // 对象中的所有属性 进行劫持
     Object.defineProperty(data, "__ob__", {
       value: this,
       enumerable: false, // 不可枚举的
@@ -59,6 +59,7 @@ export function observe(data) {
   if (!isObject(data)) {
     return
   }
+  // 被观测过的对象不需要重复观测
   if (data.__ob__) {
     return
   }
