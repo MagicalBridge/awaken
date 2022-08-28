@@ -3,7 +3,7 @@ export function lifecycleMixin(Vue) {
   Vue.prototype._update = function (vnode) {
     // 既有初始化 又又更新
     const vm = this
-
+    // 执行对比逻辑
     patch(vm.$el, vnode)
   }
 }
