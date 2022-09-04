@@ -1,31 +1,59 @@
 <template>
-  <div class="editor" id="editor-layout-main">
-    <a-layout :style="{ background: 'fff' }">
-      <a-layout-header class="header">
-        <div class="page-title">慕课乐高</div>
-      </a-layout-header>
-      <a-layout-side width="300" style="background: yellow">
-        <div class="sidebar-container">组件列表</div>
-      </a-layout-side>
-      <a-layout style="padding: 0 24px 24px">
-        <a-layout-content class="preview-container">
-          <p>画布区域</p>
-          <div class="preview-list" id="canvas-area"></div>
-        </a-layout-content>
-      </a-layout>
-      <a-layout-side width="300" style="background: purple">
-        <div class="setting-container">组件属性</div>
-      </a-layout-side>
-    </a-layout>
+  <div class="editor-page">
+    <a-row class="container">
+      <a-col :span="6" class="templates-wrap">
+        组件列表
+      </a-col>
+      <a-col :span="12" class="editor-wrap">
+        <div class="control">
+          <!-- 动态渲染组件 -->
+          画布区域
+        </div>
+      </a-col>
+      <a-col :span="6" class="attrs-wrap">
+        <!-- 属性渲染/编辑 -->
+        属性渲染
+      </a-col>
+    </a-row>
   </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "EditorPage",
+  components: {},
+});
 </script>
 
-<style>
-.sidebar-container {
+<style scoped>
+.editor-page {
+  height: 100vh;
+}
+
+.container {
   height: 100%;
+}
+
+.container .templates-wrap {
+  height: 100%;
+  background: antiquewhite;
+}
+
+.templates-wrap .components-wrap {
+  height: 100%;
+}
+
+.container .editor-wrap {
+  padding: 120px 60px 0;
+  background: plum;
+}
+.container .editor-wrap .control {
+  min-height: 360px;
+  background: aliceblue;
+}
+.container .attrs-wrap {
+  background: aliceblue;
 }
 </style>

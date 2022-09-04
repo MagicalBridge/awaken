@@ -1,23 +1,31 @@
 <template>
   <div class="homepage-container">
-    <a-layout :style="{ background: 'fff' }">
-      <a-layout-header class="header">
-        <div class="page-title">慕课乐高</div>
-      </a-layout-header>
-      <a-layout-content class="home-layout">
-        <div class="content-container">
-          <template-list :list="testData"></template-list>
-        </div>
-      </a-layout-content>
-      <a-layout-footer>
-        版权所有
-      </a-layout-footer>
-    </a-layout>
+    <img :src="template.coverImg" />
   </div>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import { defineComponent,computed } from "vue"
+import { useRoute } from "vue-router"
+import { useStore } from "vuex"
+import { GlobalDataProps } from "../store/index"
+import { TemplateProps } from '../store/modules/templates'
+
+export default defineComponent({
+  name: "TemplateDetail",
+  setup() {
+    const route = useRoute()
+    const store = useStore<GlobalDataProps>()
+    const currentId = route.params.id as string
+    const template = computed<TemplateProps>(() => {
+      return store.getters.getTemplateById(parseInt(currentId))
+    })
+    return {
+      route, // 从这里可以拿到路由信息
+      template
+    }
+  },
+})
 </script>
 
 <style>
