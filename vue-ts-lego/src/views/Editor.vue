@@ -1,13 +1,13 @@
 <template>
   <div class="editor-page">
     <a-row class="container">
-      <a-col :span="6" class="templates-wrap">
-        组件列表
-      </a-col>
+      <a-col :span="6" class="templates-wrap"> 组件列表 </a-col>
       <a-col :span="12" class="editor-wrap">
         <div class="control">
           <!-- 动态渲染组件 -->
-          画布区域
+          <div v-for="component in components" :key="component.id">
+            {{component.props.text}}
+          </div>
         </div>
       </a-col>
       <a-col :span="6" class="attrs-wrap">
@@ -19,12 +19,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue"
+import { useStore } from "vuex"
+import { GlobalDataProps } from "../store/index"
 
 export default defineComponent({
   name: "EditorPage",
   components: {},
-});
+  setup() {
+    const store = useStore<GlobalDataProps>()
+    const components = computed(() => {
+      return store.state.editor.components
+    })
+    return {
+      components,
+    }
+  },
+})
 </script>
 
 <style scoped>
