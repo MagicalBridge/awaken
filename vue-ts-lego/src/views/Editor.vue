@@ -1,13 +1,16 @@
 <template>
   <div class="editor-page">
     <a-row class="container">
-      <a-col :span="6" class="templates-wrap"> 组件列表 </a-col>
+      <a-col :span="6" class="templates-wrap">组件列表</a-col>
       <a-col :span="12" class="editor-wrap">
         <div class="control">
           <!-- 动态渲染组件 -->
-          <div v-for="component in components" :key="component.id">
-            {{component.props.text}}
-          </div>
+          <component
+            v-for="component in components"
+            :key="component.id"
+            :is="component.name"
+            v-bind="component.props"
+          />
         </div>
       </a-col>
       <a-col :span="6" class="attrs-wrap">
@@ -22,15 +25,19 @@
 import { computed, defineComponent } from "vue"
 import { useStore } from "vuex"
 import { GlobalDataProps } from "../store/index"
+import LText from "../components/LText.vue"
 
 export default defineComponent({
-  name: "EditorPage",
-  components: {},
+  name: "Editor",
+  components: {
+    LText,
+  },
   setup() {
     const store = useStore<GlobalDataProps>()
     const components = computed(() => {
       return store.state.editor.components
     })
+    console.log(components);
     return {
       components,
     }

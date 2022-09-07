@@ -23,21 +23,24 @@ export const testComponents: ComponentProps[] = [
   {
     id: uuidv4(),
     props: {
-      text: 'hello'
+      text: 'hello',
+      fontSize:'20px'
     },
     name: "l-text",
   },
   {
     id: uuidv4(),
     props: {
-      text: 'hello2'
+      text: 'hello2',
+      fontSize:'10px'
     },
     name: "l-text",
   },
   {
     id: uuidv4(),
     props: {
-      text: 'hello3'
+      text: 'hello3',
+      fontSize:'15px'
     },
     name: "l-text",
   },
