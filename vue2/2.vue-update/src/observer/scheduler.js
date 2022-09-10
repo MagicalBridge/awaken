@@ -1,9 +1,11 @@
 import { nextTick } from "../utils"
 
+// 准备一个队列存放所有的属性
 let queue = []
-let has = {} // 做列表的 列表维护存放了哪些watcher
+// 做列表的 列表维护存放了哪些watcher
+let has = {} 
 
-// 动画  滚动的频率高，节流 requestFrameAnimation
+// 动画 滚动的频率高，节流 requestFrameAnimation
 function flushSchedulerQueue() {
   for (let i = 0; i < queue.length; i++) {
     queue[i].run() // vm.name = 123?
@@ -12,7 +14,7 @@ function flushSchedulerQueue() {
   has = {}
   pending = false
 }
-
+// 做一个开关，防止高频调用
 let pending = false
 
 // 要等待同步代码执行完毕后 才执行异步逻辑
