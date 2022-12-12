@@ -9,6 +9,9 @@ Vue3中使用pnpm workspace来实现monorepo (pnpm是快速、节省磁盘空间
 ```bash
 npm install pnpm -g # 全局安装pnpm
 ```
+
+创建一个工作区
+
 ```bash
 pnpm init -y # 初始化配置文件
 ```
