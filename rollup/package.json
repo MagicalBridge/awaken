@@ -4,7 +4,8 @@
   "description": "rollup配置学习",
   "main": "index.js",
   "scripts": {
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "dev": "rollup --config -w"
   },
   "keywords": [],
   "author": "chupengfei <chupengfeiit@gmail.com> (https://github.com/MagicalBridge)",
