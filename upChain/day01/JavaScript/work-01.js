@@ -64,3 +64,5 @@ console.log(`Run Time1: ${runTime1} ms`)
 // nonce1 982177
 // hash1 0000014ec69544e8cba07a00c8fa4c98c899f981b80066277772a2e79badb4ec
 // Run Time1: 672 ms
+
+module.exports = calculateTime
