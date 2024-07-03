@@ -129,6 +129,32 @@ Max Priority Fee 在这个计算中没有直接影响最终的最大可能花费
 ## 题目4
 在以太坊上，用户发起一笔交易 设置了 GasLimit 为 10000, Max Fee 为 10 GWei, Max priority Fee 为 1 GWei，在打包时，Base Fee 为 5 GWei, 实际消耗的 Gas 为 5000， 那么燃烧掉的 Eth 数量是多少 GWei ?
 
+1. 交易设置：
+   - Gas Limit: 10000
+   - Max Fee: 10 Gwei
+   - Max Priority Fee: 1 Gwei
+
+2. 实际情况：
+   - Base Fee: 5 Gwei
+   - 实际消耗的 Gas: 5000
+
+3. 计算过程：
+
+   在以太坊的 EIP-1559 机制下，Base Fee 是被燃烧的部分。所以我们需要计算 Base Fee 乘以实际消耗的 Gas。
+
+   燃烧的 ETH = Base Fee * 实际消耗的 Gas
+                = 5 Gwei * 5000
+                = 25000 Gwei
+
+因此，在这笔交易中燃烧掉的 ETH 数量是 25000 Gwei。
+
+解释：
+1. 只有 Base Fee 部分被燃烧，Priority Fee 不被燃烧。
+2. 燃烧的金额只与实际消耗的 Gas 有关，而不是设置的 Gas Limit。
+3. 这个机制有助于控制以太坊的通货膨胀，因为部分交易费用被永久从流通中移除。
+
+这个例子很好地展示了 EIP-1559 如何通过燃烧 Base Fee 来调节以太坊的供应。即使在单笔交易中，被燃烧的金额也可能是相当可观的。在网络繁忙时期，由于 Base Fee 会更高，被燃烧的 ETH 数量会更多，这有助于平衡网络的供需关系。
+
 
 # 创建和部署第一个智能合约
 
