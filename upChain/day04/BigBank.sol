@@ -9,13 +9,17 @@ interface IBank {
 
     // Function definitions to be implemented
     // Getter function for public state variable
-    function owner() external view returns(address);
+    function owner() external view returns (address);
+
     // Deposit function
     function deposit() external payable;
+
     // Withdraw function
     function withdraw(uint256 amount) external;
+
     // Get balance for a specific address
-    function getBalance(address addr) external view returns(uint256);
+    function getBalance(address addr) external view returns (uint256);
+
     // Get top depositors
     function getTopDepositors() external view returns (address[] memory);
 }
@@ -28,7 +32,7 @@ interface IBigBank {
 // OriginalBank contract implementing IBank interface
 contract OriginalBank is IBank {
     address public owner;
-    mapping (address => uint256) private balances;
+    mapping(address => uint256) private balances;
     address[] public topDepositors;
 
     // Constructor to set the contract owner
@@ -37,7 +41,7 @@ contract OriginalBank is IBank {
     }
 
     // Modifier to restrict function access to owner only
-    modifier onlyOwner () {
+    modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can call this function");
         _;
     }
@@ -94,12 +98,17 @@ contract OriginalBank is IBank {
     }
 
     // Get balance for a specific address
-    function getBalance(address addr) public view override returns(uint256) {
+    function getBalance(address addr) public view override returns (uint256) {
         return balances[addr];
     }
 
     // Get the list of top depositors
-    function getTopDepositors() public view override returns (address[] memory) {
+    function getTopDepositors()
+        public
+        view
+        override
+        returns (address[] memory)
+    {
         return topDepositors;
     }
 }
@@ -110,7 +119,10 @@ contract BigBank is OriginalBank {
     uint256 private constant MIN_DEPOSIT = 1_000_000_000_000_000; // 0.001 ETH in wei
 
     // Event for ownership transfer
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     // Modifier to check if deposit amount is greater than minimum required
     modifier minDepositRequired() {
@@ -134,7 +146,7 @@ contract BigBank is OriginalBank {
 }
 
 // Ownable contract to manage ownership and interact with BigBank
-contract Ownable { 
+contract Ownable {
     address public owner; // Owner's address
 
     IBigBank public bigBank;
@@ -154,7 +166,7 @@ contract Ownable {
     function setBigBankAddress(address _bigBankAddress) public onlyOwner {
         bigBank = IBigBank(_bigBankAddress);
     }
-    
+
     // Function to withdraw from BigBank
     function withdraw(uint256 amount) public onlyOwner {
         require(address(bigBank) != address(0), "BigBank address not set");
@@ -162,5 +174,5 @@ contract Ownable {
     }
 
     // Fallback function to receive ETH
-    receive() external payable { }
+    receive() external payable {}
 }
