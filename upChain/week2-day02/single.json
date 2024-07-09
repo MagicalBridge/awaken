@@ -1,0 +1,11 @@
+{
+  "title": "头像",
+  "image": "ipfs://QmTCz8JQeKshb5oyq61FiCWScMZy4DPiHrCa86NS99YWkG",
+  "attributes": [
+    {
+      "trait_type": "图片大小",
+      "value": "1024*768"
+    }
+  ],
+  "version": "1"
+}
