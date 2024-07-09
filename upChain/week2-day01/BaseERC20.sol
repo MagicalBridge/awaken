@@ -29,7 +29,6 @@ contract BaseERC20 {
     }
 
     function balanceOf(address _owner) public view returns (uint256 balance) {
-        // write your code here
         require(
             _owner != address(0),
             "ERC20: balance query for the zero address"
@@ -41,7 +40,6 @@ contract BaseERC20 {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        // write your code here
         require(_to != address(0), "ERC20: transfer to the zero address");
         require(_value > 0, "ERC20: transfer amount must be greater than zero");
 
@@ -66,7 +64,6 @@ contract BaseERC20 {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        // write your code here
         require(_to != address(0), "ERC20: transferFrom to the zero address");
         require(
             _value > 0,
@@ -93,7 +90,6 @@ contract BaseERC20 {
         address _spender,
         uint256 _value
     ) public returns (bool success) {
-        // write your code here
         address owner = msg.sender; // 将交易发起者的地址设置为owner
         // 需要首先判断交易发起者不是0地址
         require(owner != address(0), "ERC20: approve from the zero address");
@@ -109,7 +105,6 @@ contract BaseERC20 {
         address _owner,
         address _spender
     ) public view returns (uint256 remaining) {
-        // write your code here
         require(_owner != address(0), "ERC20: owner is the zero address");
         require(_spender != address(0), "ERC20: spender is the zero address");
         return allowances[_owner][_spender];
