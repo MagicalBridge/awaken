@@ -19,9 +19,53 @@
 提出扩展后的TokenBank代码或代码库链接。
 
 ### 题解思路:
-使用
+
+1、首先部署`ERC20的Token`, 得到ERC20token的合约地址。
+  ERC20的Token地址：`0xc674C85c95663383472ed828Bb9D39a5D1A2DD57`
+  由 `0x2b754dEF498d4B6ADada538F01727Ddf67D91A7D` 自己的地址mint 总量：1000000000 个
+
+2、部署带有回调函数的 `tokenBank` 
+  TokenBank的地址：`0x8BaCa5a3cEd92d54eAdB3BfD0E94a8f7F6Fd8456` 
+
+3、调用 `ERC20的Token` 合约的方法，向 `tokenBank` 转钱; 触发回调，可以记录转过去的余额
+
+4、使用基本的transfer也可以完成转账，但是转过去币就丢了，没有办法记录这个映射。
 
 ## 题目3 暂时不做
-扩展挑战Token 购买 NFT 合约，能够使用ERC20扩展中的回调函数来购买某个 NFT ID。
+扩展挑战 Token购买NFT 合约，能够使用ERC20扩展中的回调函数来购买某个 NFT ID。
 
 贴出你的代码或代码库链接。
+
+
+# Solidity 实现用Token 购买 NFT
+
+## 题目1
+用 ERC721 标准发行一个自己 NFT 合约，并用图片铸造几个 NFT ， 请把图片和 Meta Json数据上传到去中心的存储服务中，请贴出在 OpenSea 的 NFT 链接。
+
+## 题目2
+编写一个简单的 NFT市场合约，使用自己的发行的 Token 来买卖 NFT， 函数的方法有：
+
+list() : 实现上架功能，NFT 持有者可以设定一个价格（需要多少个 Token 购买该 NFT）并上架 NFT 到 NFT 市场。
+buyNFT() : 实现购买 NFT 功能，用户转入所定价的 token 数量，获得对应的 NFT。
+请在回答贴出你的代码或者 github 链接。
+
+### 题解思路
+1、首先部署`ERC20的Token`, 得到ERC20token的合约地址。
+  ERC20的Token地址：`0xc674C85c95663383472ed828Bb9D39a5D1A2DD57`
+  由 `0x2b754dEF498d4B6ADada538F01727Ddf67D91A7D` 自己的地址mint 总量：1000000000 个
+
+2、在部署的钱包中添加相关的Token，方便后续的交互。已经添加完成；
+
+3、部署`ERC721合约`，并mint一个NFT。这个NFT属于当前的钱包地址。
+  ERC721合约地址：`0x71bfCA485f607fD185E56A3656aeB7051333Ec43`
+
+4、部署 NFT_MARKET 合约，入参是ERC20合约和ERC721的合约地址。
+
+5、需要将 执行交易的人授权一定的代币额度给 NFT_MARKET。不然在内部调用方法肯定会报错的。
+
+6、需要 ERC721合约 授权 NFT_MARKET 合约 代管自己的NFT，方便转移给别人。
+
+
+
+
+
