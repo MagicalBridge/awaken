@@ -11,7 +11,7 @@
 
 2、目前我这个Token不限制任何人mint，大家都可以mint，然后放入自己的钱包。
 
-3、我实际是在尝试实现一个ERC1363的TOKEN，这个认知还是非常重要的。
+3、我实际是在尝试实现一个`ERC1363`的TOKEN，这个认知还是非常重要的。
 
 ## 题目2
 扩展 TokenBank, 在TokenBank 中利用上一题的转账回调实现存款。
@@ -41,8 +41,20 @@
 
 ### 测试用例步骤
 
-TODO
+1、首先在测试网部署token，部署的地址为: 0x77a8Eaf5fED0a63E01a3FDd4529123B8e08158dD
 
+2、用我自己的账户1: 0x2b754dEF498d4B6ADada538F01727Ddf67D91A7D 进行mint操作，1000000000,然后添加到钱包中，用于交互;
+
+3、部署NFT合约（ERC721合约, 地址）: 0xA4203a92b9D40Bb89AAc7D7F0d2eb4E3ED4EA411 
+
+4、我使用: 0x2b754dEF498d4B6ADada538F01727Ddf67D91A7D mint了一个NFT, 当前这个合约中只有一个NFT, id就是1。
+
+5、部署 NFT_Market_Advance 合约，入参是ERC20合约和ERC721的合约地址: 0x11a70E69201BbF6aB1D1530a0Db65d6125D2fef4
+
+6、部署成功之后，用户应该怎么交互才能将NFT转移到市场合约? 用户调用NFT合约的，safeTransferFrom 函数，NFT 转移到市场合约，并在 data 参数中指定价格。
+需要调用四个参数 safetransfer, 看看能不能成功
+
+7、
 
 # Solidity 实现用Token 购买 NFT
 
