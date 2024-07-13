@@ -47,5 +47,8 @@ contract Bank {
 
 10、写测试用例：根据提示写测试用例。
 
-
+# Foundry工具的应用：
+创建Github仓库：将 TokenBank，NFTMarket, TokenHook 合约放入到 Foundry 工程中
+完成挑战：测试Bank存款   https://decert.me/challenge/4578ff5b-4dcb-4c28-8b5f-7456ed1ab0a4
+完成挑战：Foundry 基础知识测试： https://decert.me/quests/3bca8f1f-df6b-469b-941e-79388ee280c6
 
