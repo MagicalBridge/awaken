@@ -57,7 +57,6 @@ function permitBuy(signatureEIP712,signatureEIP2612){
 }
 ```
 
-
 ```js
 onchain: list(nft,tokenId,price)
 
@@ -92,7 +91,28 @@ buy(SellOrder order,signatureForSellOrder,signatureForApprove , signatureForWL){
 
 3、这个签名的映射关系，可以存储在NFT合约中吗？比如在前端界面上有一个申请购买的按钮，这个时候，用户进行链下签名之后把这个数据存储在NFT合约中。但是这样是需要支付GAS, 或者是购买的用户使用中心化的方式，将自己的签名信息发送到中心化服务器上，在后端做一个存储映射，地址对应签名信息。
 
-4、用户在真实购买的时候，前端请求接口从中心化的服务中取出用户的签名信息，然后传递给buypert函数，这个函数内部对这个签名信息做解析判断是否有效。有效的话调用 ERC2612的 permit 方法进行验证。
+4、用户在真实购买的时候，前端请求接口从中心化的服务中取出用户的签名信息，这个签名是第三方用自己的钱包私钥签名的，然后前端拿到这个签名参数传递给buyerpermit函数，这个函数内部会recover出签名者的地址，然后和NFTMarket这个合约的owner做一个对比。如果这两个地址一致，并且传递进来的buyer和 msg.sender 一致。才能保证签名的有效性。
 
 5、在讨论中至少明白一件事情：白名单可以项目方在事先就设计好的东西。用户实际上就是拿着这个信息去购买NFT。
+
+
+### 测试用例步骤：
+
+1、部署符合ERC2612的 Token, 这个在上面已经完成了，token地址 ' 0x3c510705cdbb9c2d8c6A68A44256fb331D1EDB56 '
+
+2、部署这个Token的地址是我的主网地址 ' 0x2b754dEF498d4B6ADada538F01727Ddf67D91A7D ' 将Token添加到钱包中，本来发行了100个，目前主账户钱包中还有80个。
+
+3、第二个账户地址 ' 0x922dB1A931327CA2680343eD2d5E4541669701e9 ' 目前有 10 个 Token。
+
+4、部署ERC721NFT合约，还是使用我的主账户部署，部署之后的地址：' 0xE7741Ca16f8399D06FC8069184a742E59F3e9bF5 ' name NFTPermit
+
+5、给自己的主账户 mint 一个NFT, tokenId 初始值为 1，
+
+6、mint之后，检查NFT的所有权、数量等等信息。看看是否符合预期。
+
+7、开始部署比较重要的 NFTmarketpermit 合约，这个合约, 还是比较重要的。我用第三个账户进行部署。第三个账户的地址 ' 0x843E582a8E439E770D18553942bAF1D3f10b0Ff1 '
+
+8、部署marketpermit合约，入参是TOKEN20 和 NFT地址, 并测试上架和取消上架 
+
+
 

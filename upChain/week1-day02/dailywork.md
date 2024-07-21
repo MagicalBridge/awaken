@@ -171,7 +171,7 @@ Counter 合约具有
 
 请在回答框内提交调用 add(x) 的交易 Hash 的区块链浏览器的 URL。
 
-```solidity
+```js
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -193,7 +193,6 @@ contract Counter {
     }
 }
 ```
-
 将上述合约部署在测试网络上之后，点击 add 函数，签名之后，可以找到对应的交易hash。
 
 

@@ -9,3 +9,6 @@
 ### 关键知识点：
 1、nonce 如果可以自增的话，类型为number，我的昵称是字符串类型，如果需要将两部分进行拼接，需要将number类型转换为string类型，然后将两部分的字符串都转成buffer，再进行sha256的hash运算。
 
+### 相关实现：
+https://github.com/MagicalBridge/awaken/blob/master/upChain/day01/JavaScript/work-02.js
+
